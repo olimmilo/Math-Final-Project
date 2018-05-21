@@ -18,7 +18,7 @@ def Mean(data):
 	mean = sum/len(data)
 	return(mean)
 
-def InputSound(namein,nameout,filetype): ##filetype is the integer relating to the file
+def InputSound(namein,nameout,filetype,instrumentlibrary): ##filetype is the integer relating to the file
 	
 	error = 0
 	
@@ -28,8 +28,8 @@ def InputSound(namein,nameout,filetype): ##filetype is the integer relating to t
 	
 	namelist = []
 	i = 0
-	while i < len(INSTRUMENTLIBRARY):
-		namelist.append(INSTRUMENTLIBRARY[i][1])
+	while i < len(instrumentlibrary):
+		namelist.append(instrumentlibrary[i][1])
 		i += 1
 	i = 0
 	
