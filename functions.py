@@ -7,6 +7,17 @@ INSTRUMENTLIBRARY = [] ## [[name, [data per milisecond]],[name, [data per milise
 
 FILETYPE=[wav,mp3,ogg,flv]
 
+def Mean(data):
+	sum = 0
+	i = 0
+	
+	while i < len(data):
+		sum += data[i]
+		i += 1
+	
+	mean = sum/len(data)
+	return(mean)
+
 def InputSound(namein,nameout,filetype): ##filetype is the integer relating to the file
 	
 	error = 0
@@ -48,6 +59,19 @@ def InputSound(namein,nameout,filetype): ##filetype is the integer relating to t
 		error = 2
 		return("ERROR 2")
 		break
-	output = [nameout, rawaudio]
+	
+	mean = Mean(rawaudio)
+	
+	equalizedaudio = []
+	
+	i = 0
+	
+	while i < len(rawaudio):
+		equalizedaudio.append(rawaudio[i]-mean)
+		i += 1
+	
+	i = 0
+	
+	output = [nameout, equalizedaudio]
 	
 	return(output)
