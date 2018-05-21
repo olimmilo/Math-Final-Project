@@ -48,5 +48,6 @@ def InputSound(namein,nameout,filetype): ##filetype is the integer relating to t
 		error = 2
 		return("ERROR 2")
 		break
+	output = [nameout, rawaudio]
 	
-	return()
+	return(output)
