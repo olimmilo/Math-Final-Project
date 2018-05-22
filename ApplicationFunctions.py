@@ -5,7 +5,7 @@ FILENAMEOUT = "trial1"
 
 INSTRUMENTLIBRARY = [] ## [[name, [data per milisecond]],[name, [data per milisecond]]]
 
-FILETYPE=[wav,mp3,ogg,flv]
+FILETYPE=['wav','mp3','ogg','flv']
 
 def Mean(data):
 	sum = 0
@@ -38,10 +38,6 @@ def InputSound(namein,nameout,filetype,instrumentlibrary): ##filetype is the int
 			error = 1
 		i += 1
 	i = 0
-	
-	if error = 0:
-		return("ERROR 1")
-		break
 		
 	"""
 	opens file and turns it to raw data 
@@ -57,8 +53,6 @@ def InputSound(namein,nameout,filetype,instrumentlibrary): ##filetype is the int
 		rawaudio = AudioSegment.from_flv(namein)
 	else:
 		error = 2
-		return("ERROR 2")
-		break
 	
 	mean = Mean(rawaudio)
 	
@@ -73,5 +67,9 @@ def InputSound(namein,nameout,filetype,instrumentlibrary): ##filetype is the int
 	i = 0
 	
 	output = [nameout, equalizedaudio]
-	
-	return(output)
+	if error == 1:
+		return("ERROR 1")
+    elif error == 2:
+        return("ERROR 2")
+    else:
+        return(output)
