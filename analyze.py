@@ -23,7 +23,8 @@ def Fit(lista, listb):
         i += 1
     i = 0
     return(output)
-
+def Final(1,2,3):
+	pass
 soundA, samplerateA = sf.read(RAWSOUNDFILE)
 soundAy = soundA
 soundAx = [x/1000 for x in range(len(soundAy))]
@@ -31,10 +32,6 @@ soundAx = [x/1000 for x in range(len(soundAy))]
 fftA = fft(soundA)
 fftAy = [np.abs(x) for x in fftA[:10000]]
 fftAx = [x for x in range(10000)]
-
-#maxA1 = signal.find_peaks_cwt(fftAy[:2000], np.arange(1,10))
-#maxA2 = signal.find_peaks_cwt(fftAy[2000:], 1000)
-#maxAy = maxA1y+maxA2y
 
 maxAx = signal.find_peaks_cwt(fftAy[:2000], np.arange(1,10))
 maxAy = [fftAy[x] for x in maxAx]
@@ -45,6 +42,9 @@ pol = 4
 reg =  np.polyfit(ampAx, ampAy, pol)
 ampBx = ampAx 
 ampBy = Fit(reg, ampBx)
+
+compAx = soundAx
+compAy = [final(x,maxAx,maxAy) for x in compAx]
 
 plt.figure(1)
 plt.plot(soundAx, soundAy)
@@ -63,7 +63,7 @@ plt.ylabel('Amplitude')
 plt.title('Fourier Transform of Recorded Soundwave')
 
 """
-plt.figure(4)
+plt.figure(3)
 plt.plot(compAx, compAy)
 plt.xlabel('Time')
 plt.ylabel('Air Pressure Variation')
