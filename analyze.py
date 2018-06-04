@@ -32,14 +32,29 @@ def LinFit(xvalues, xrough, yrough):
 	xpath.append(xvalues[-1])
 	ypath.append(0)
 	
+	ysets = []
+	
+	ysetsfin = []
+	
 	i = 0
+	j = 0
 	while i < len(xpath):
-		j = 0
+		set = []
 		while xvalues[j] <= xpath[i]:
-			xvalues
+			set.append(xvalues[j])
 			j += 1
-		i +=0
+		yset.append(set)
+		i += 1
 	i = 0
+	
+	while i < len(ysets):
+		regression = np.polyfit([xpath[i-1], xpath[i]],[ypath[i-1], ypath[i]],1)
+		ysetsfin.append(Fit(regression, ysets[i]))	
+		i += 1
+	
+	i = 0
+	
+	yvalues = [p for q in ysetsfin for p in q]
 	
 	if len(xvalues) == len(yvalues):
 		print('yay')
@@ -76,7 +91,7 @@ ampCx = ampBx
 ampCy = LinFit(ampCx, soundAx, soundAy)
 
 compAx = soundAx
-compAy = [final(x,maxAx,maxAy) for x in compAx]
+compAy = [final(x,maxAx,maxAy)*ampCy[x] for x in compAx]
 
 plt.figure(1)
 plt.plot(soundAx, soundAy)
