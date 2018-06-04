@@ -65,7 +65,7 @@ def Final(xvalue,frequency,amplitude):
 	i = 0
 	yvalue = 0
 	while i < len(frequency):
-		yvalue += amplitude*np.sin(x*frequency+(random.uniform(0,0.5)-0.25))
+		yvalue += amplitude*np.sin(xvalue*frequency+(random.uniform(0,0.5)-0.25))
 		i += 1
 	i = 0
 	return(yvalue)
