@@ -27,8 +27,8 @@ def Fit(lista, listb):
 
 def LinFit(xvalues, xrough, yrough):
 	yvalues = []
-	xpath += signal.find_peaks_cwt(yrough, np.arange(1,10))
-	ypath += [yrough[x] for x in xpath]
+	xpath = signal.find_peaks_cwt(yrough, np.arange(1,10))
+	ypath = [yrough[x] for x in xpath]
 	xpath.append(xvalues[-1])
 	ypath.append(0)
 	
@@ -43,7 +43,7 @@ def LinFit(xvalues, xrough, yrough):
 		while xvalues[j] <= xpath[i]:
 			set.append(xvalues[j])
 			j += 1
-		yset.append(set)
+		ysets.append(set)
 		i += 1
 	i = 0
 	
@@ -91,7 +91,7 @@ ampCx = ampBx
 ampCy = LinFit(ampCx, soundAx, soundAy)
 
 compAx = soundAx
-compAy = [final(x,maxAx,maxAy)*ampCy[x] for x in compAx]
+compAy = [Final(x,maxAx,maxAy)*ampCy[x] for x in compAx]
 
 plt.figure(1)
 plt.plot(soundAx, soundAy)
