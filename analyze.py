@@ -91,7 +91,9 @@ ampCx = ampBx
 ampCy = LinFit(ampCx, soundAx, soundAy)
 
 compAx = soundAx
-compAy = [Final(x,maxAx,maxAy)*ampCy[x] for x in compAx]
+compAy = [Final(x,maxAx,maxAy)*ampBy[x] for x in compAx]
+compBx = soundAx
+compBy = [Final(x,maxAx,maxAy)*ampCy[x] for x in compAx]
 
 plt.figure(1)
 plt.plot(soundAx, soundAy)
@@ -111,9 +113,10 @@ plt.ylabel('Amplitude')
 plt.title('Fourier Transform of Recorded Soundwave')
 
 plt.figure(3)
-plt.plot(compAx, compAy)
+plt.subplot(compAx, compAy)
+plt.subplot(compBx, compBy)
 plt.xlabel('Time')
 plt.ylabel('Air Pressure Variation')
-plt.title('Final Constructed Composite Soundwave')
+plt.title('Final Constructed Composite Soundwaves')
 
 plt.show()
