@@ -17,8 +17,23 @@ def LinearRegression(init_sound_list):
 def QuarticRegression(init_sound_list):
 	return([x,y])
 	
-def SoundComposition(pure_tones,regression)
-	return([x,y])
+def SoundComposition(init_tone_list,regression_list)
+	standard_tone_x = init_tone_list[0][0]
+	standard_tone_y = []
+	j = 0
+	while j < len(standard_tone_x):
+		y_value = 0
+		i = 0
+		while i < len(init_tone_list):
+			y_value += init_tone_list[i][j]
+			i += 1
+		standard_tone_y.append(y_value)
+		j += 1
+	standard_tone = [standard_tone_x, standard_tone_y]
+	tone_x = standard_tone[0]
+	tone_y = [standard_tone[1][x]*regression_list[x] for x in standard_tone[0]]
+	tone = [tone_x, tone_y]
+	return(tone)
 
 """
 PART ONE
