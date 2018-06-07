@@ -56,13 +56,24 @@ fft = [fft_x, fft_y]
 
 fft_max_x = signal.find_peaks_cwt(fft[1], np.arange(1,10))
 fft_max_y = [fft[1][x] for x in fft_max_x]
+fft_max = [fft_max_x, fft_max_y]
 
 """
 Part Three
 """
 
 #Creates a list of each individual pure tone
-
+pure_tones = []
+i = 0
+while i < len(fft_max[0]):
+	tone_x = sound_raw[0]
+	frequency = fft_max[0][i]
+	amplitude = fft_max[1][i]
+	tone_y = [(amplitude*np.sin(x*frequency)) for x in tone_x]
+	tone = [tone_x, tone_y]
+	pure_tones.append(tone)
+	i += 1
+i = 0
 #combines pure tones and amplitude functions into in composite sound wave
 
 """
