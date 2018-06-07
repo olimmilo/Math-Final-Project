@@ -52,6 +52,33 @@ Graphing
 
 #Graphs the raw soundwave against the two amplitude functions
 
+plt.figure(1)
+plt.plot(sound_raw[0], sound_raw[1])
+plt.plot(reg_lin[0], reg_lin[1])
+plt.plot(reg_quart[0], reg_quart[1])
+plt.xlabel('Time')
+plt.ylabel('Air Pressure Variation')
+plt.title('Recorded Composite Soundwave')
+
 #Graphs the Fourier Transform of the raw sound wave against a scatter plot of the discretely selected frequencies
 
+plt.figure(2)
+plt.hold(True)
+plt.plot(fft[0], fft[1])
+plt.scatter(fft_max[0], fft_max[1], c='red')
+plt.xlabel('Frequency')
+plt.ylabel('Amplitude')
+plt.title('Fourier Transform of Recorded Soundwave')
+
 #Graphs the composite wave forms using the two different amplitude functions
+
+plt.figure(3)
+plt.subplot(comp_lin[0], comp_lin[1])
+plt.subplot(comp_quart[0], comp_quart[1])
+plt.xlabel('Time')
+plt.ylabel('Air Pressure Variation')
+plt.title('Final Constructed Composite Soundwaves')
+
+#shows the graphs
+
+plt.show()
