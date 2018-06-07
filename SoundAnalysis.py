@@ -9,13 +9,22 @@ Initially Defined Functions
 """
 
 def SoundProscessing(init_sound_list):
-	return([x,y])
+	final = init_sound_list
+	return(final)
 
-def LinearRegression(init_sound_list):
-	return([x,y])
+def LinearRegression(init_sound_list,raw_sound_list):
+	final_x = raw_sound_list[0]
+	#trial: y = 1/8x + 1
+	final_y = [((1/8)*x)+1 for x in final_x]
+	final = [final_x, final_y]
+	return(final)
 
-def QuarticRegression(init_sound_list):
-	return([x,y])
+def QuarticRegression(init_sound_list,raw_sound_list):
+	final_x = raw_sound_list[0]
+	#trial: y = 1/4x + .5
+	final_y = [((1/8)*x)+1 for x in final_x]
+	final = [final_x, final_y]
+	return(final)
 	
 def SoundComposition(init_tone_list,regression_list)
 	standard_tone_x = init_tone_list[0][0]
@@ -53,8 +62,8 @@ proscessed_sound = SoundProcessing(sound_raw)
 
 #finds the linear and quartic amplitude functions
 
-reg_lin = LinearRegression(processed_sound)
-reg_quart = QuarticRegression(processed_sound)
+reg_lin = LinearRegression(processed_sound,sound_raw)
+reg_quart = QuarticRegression(processed_sound,sound_raw)
 
 """
 PART TWO
