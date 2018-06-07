@@ -9,16 +9,16 @@ Initially Defined Functions
 """
 
 def SoundProscessing(init_sound_list):
-	pass
+	return([x,y])
 
 def LinearRegression(init_sound_list):
-	pass
+	return([x,y])
 
 def QuarticRegression(init_sound_list):
-	pass
+	return([x,y])
 	
-def Sound_composition(pure_tones,regression)
-	pass
+def SoundComposition(pure_tones,regression)
+	return([x,y])
 
 """
 PART ONE
@@ -26,9 +26,20 @@ PART ONE
 
 #imports the raw sound and turns it into workable data
 
+sound_raw_y, sample_rate = sf.read('raw-sound.wav') #sound file contained in the same directory in which the program is run
+
+sound_raw_x = [x for x in range(len(sound_raw_init))]
+
+sound_raw = [sound_raw_x, sound_raw_y]
+
 #converts the raw sound into a proscessed form which can be used to find the amplitude functions
 
+proscessed_sound = SoundProcessing(sound_raw)
+
 #finds the linear and quartic amplitude functions
+
+reg_lin = LinearRegression(processed_sound)
+reg_quart = QuarticRegression(processed_sound)
 
 """
 PART TWO
@@ -36,7 +47,15 @@ PART TWO
 
 #uses the FFT algoritm to proscess the raw sound into its component pure tones and amplitudes therein
 
+fft_raw = fft(sound_raw[1])
+fft_y = [np.abs(x) for x in fftA[:10000]]
+fft_x = [x for x in range(len(fft_y))]
+fft = [fft_x, fft_y]
+
 #finds the local maxima of the FFT function to determine the discrete component pure tones
+
+fft_max_x = signal.find_peaks_cwt(fft[1], np.arange(1,10))
+fft_max_y = [fft[1][x] for x in fft_max_x]
 
 """
 Part Three
