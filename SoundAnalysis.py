@@ -9,7 +9,12 @@ Initially Defined Functions
 """
 
 def SoundProscessing(init_sound_list):
-	final = init_sound_list
+	final = [init_sound_list[0],[]]
+	i = 0
+	while i < len(init_sound_list[1]):
+		value = np.abs(init_sound_list[1][i])
+		final[1].append(value)
+		i += 1
 	return(final)
 
 def LinearRegression(init_sound_list,raw_sound_list):
@@ -28,7 +33,12 @@ def QuarticRegression(init_sound_list,raw_sound_list):
 	
 def SoundComposition(init_tone_list,regression_list):
 	tone_x = init_tone_list[0]
-	tone_y = [init_tone_list[1][x]*regression_list[1] for x in range(len(tone_x))]
+	tone_y = []
+	i = 0
+	while i < len(tone_x):
+		value = init_tone_list[1][i]*regression_list[1][i]
+		tone_y.append(value)
+		i += 1
 	tone = [tone_x, tone_y]
 	return(tone)
 
@@ -46,7 +56,15 @@ sound_raw = [sound_raw_x, sound_raw_y]
 
 #converts the raw sound into a proscessed form which can be used to find the amplitude functions
 
-processed_sound = SoundProscessing(sound_raw)
+proc = [np.abs(sound_raw[1][x]) for x in range(len(sound_raw[1]))]
+
+sound_proc = [sound_raw[0], proc]
+
+raw_max_x = signal.find_peaks_cwt(sound_proc[1], np.arange(1,10))
+raw_max_y = [sound_raw[1][x] for x in raw_max_x]
+raw_max = [raw_max_x, raw_max_y]
+
+processed_sound = SoundProscessing(raw_max)
 
 #finds the linear and quartic amplitude functions
 
@@ -68,7 +86,7 @@ fft = [fft_x, fft_y]
 
 #finds the local maxima of the FFT function to determine the discrete component pure tones
 
-fft_max_x = signal.find_peaks_cwt(fft[1], np.arange(1,10))
+fft_max_x = signal.find_peaks_cwt(fft[1][:3500], np.arange(20,200))
 fft_max_y = [fft[1][x] for x in fft_max_x]
 fft_max = [fft_max_x, fft_max_y]
 
@@ -78,7 +96,6 @@ fft_max = [fft_max_x, fft_max_y]
 
 #Creates a list of each individual pure tone
 
-'''
 pure_tones = []
 i = 0
 while i < len(fft_max[0]):
@@ -95,13 +112,21 @@ while i < len(fft_max[0]):
 	pure_tones.append(tone)
 	i += 1
 i = 0
-'''
+
 #Sums the pure tones into a composite tone
+
+fin_tone_x = sound_raw[0]
+fin_tone_y = [0 for x in fin_tone_x]
+i = 0
+while i < len(pure_tones):
+	fin_tone_y = [fin_tone_y[x]+pure_tones[i][1][x] for x in range(len(fin_tone_x))]
+	i += 1
+fin_tone = [fin_tone_x, fin_tone_y]
 
 #combines pure tones and amplitude functions into in composite sound wave
 
-comp_lin = SoundComposition(sound_raw, reg_lin)
-comp_quart = SoundComposition(sound_raw, reg_quart)
+comp_lin = SoundComposition(fin_tone, reg_lin)
+comp_quart = SoundComposition(fin_tone, reg_quart)
 
 """
 #Graphing
@@ -112,6 +137,7 @@ comp_quart = SoundComposition(sound_raw, reg_quart)
 
 plt.figure(1)
 plt.plot(sound_raw[0], sound_raw[1])
+plt.scatter(processed_sound[0], processed_sound[1], c='red')
 plt.plot(reg_lin[0], reg_lin[1])
 plt.plot(reg_quart[0], reg_quart[1])
 plt.xlabel('Time')
@@ -130,11 +156,16 @@ plt.title('Fourier Transform of Recorded Soundwave')
 #Graphs the composite wave forms using the two different amplitude functions
 
 plt.figure(3)
-plt.subplot(comp_lin[0], comp_lin[1])
-plt.subplot(comp_quart[0], comp_quart[1])
+plt.plot(comp_lin[0], comp_lin[1])
 plt.xlabel('Time')
 plt.ylabel('Air Pressure Variation')
-plt.title('Final Constructed Composite Soundwaves')
+plt.title('Final Constructed Composite Soundwave (Linear Amplitude Function)')
+
+plt.figure(4)
+plt.plot(comp_quart[0], comp_quart[1])
+plt.xlabel('Time')
+plt.ylabel('Air Pressure Variation')
+plt.title('Final Constructed Composite Soundwave (Quartic Amplitude Function)')
 
 #shows the graphs
 
