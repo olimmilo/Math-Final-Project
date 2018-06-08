@@ -21,14 +21,7 @@ def SoundProscessing(init_sound_list):
 		i += 1
 	final = [final_x, final_y]
 	return(final)
-"""
-def LinearRegression(init_sound_list,raw_sound_list):
-	final_x = raw_sound_list[0]
-	#trial: y = 1/100000xx + .1
-	final_y = [((1/100000)*x)+.1 for x in final_x]
-	final = [final_x, final_y]
-	return(final)
-"""
+
 def QuarticRegression(init_sound_list,raw_sound_list):
 	reg = np.polyfit(init_sound_list[0], init_sound_list[1], 4)
 	final_x = raw_sound_list[0]
@@ -71,9 +64,8 @@ raw_max = [raw_max_x, raw_max_y]
 
 processed_sound = SoundProscessing(raw_max)
 
-#finds the linear and quartic amplitude functions
+#finds the  quartic amplitude function
 
-#reg_lin = LinearRegression(processed_sound,sound_raw)
 reg_quart = QuarticRegression(processed_sound,sound_raw)
 
 
@@ -128,22 +120,20 @@ while i < len(pure_tones):
 	i += 1
 fin_tone = [fin_tone_x, fin_tone_y]
 
-#combines pure tones and amplitude functions into in composite sound wave
+#combines pure tones and amplitude function into in composite sound wave
 
-#comp_lin = SoundComposition(fin_tone, reg_lin)
+
 comp_quart = SoundComposition(fin_tone, reg_quart)
 
 """
 #Graphing
 """
 
-#Graphs the raw soundwave against the two amplitude functions
+#Graphs the raw soundwave against the amplitude function
 
 
 plt.figure(1)
 plt.plot(sound_raw[0], sound_raw[1])
-#plt.scatter(processed_sound[0], processed_sound[1], c='red')
-#plt.plot(reg_lin[0], reg_lin[1])
 plt.plot(reg_quart[0], reg_quart[1])
 plt.xlabel('Time')
 plt.ylabel('Air Pressure Variation')
@@ -158,14 +148,8 @@ plt.xlabel('Frequency')
 plt.ylabel('Amplitude')
 plt.title('Fourier Transform of Recorded Soundwave')
 
-#Graphs the composite wave forms using the two different amplitude functions
-"""
-plt.figure(3)
-plt.plot(comp_lin[0], comp_lin[1])
-plt.xlabel('Time')
-plt.ylabel('Air Pressure Variation')
-plt.title('Final Constructed Composite Soundwave (Linear Amplitude Function)')
-"""
+#Graphs the composite wave forms using the amplitude function
+
 plt.figure(3)
 plt.plot(comp_quart[0], comp_quart[1])
 plt.xlabel('Time')
