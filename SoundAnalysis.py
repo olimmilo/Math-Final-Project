@@ -25,9 +25,9 @@ def LinearRegression(init_sound_list,raw_sound_list):
 	return(final)
 
 def QuarticRegression(init_sound_list,raw_sound_list):
+	reg = np.polyfit(init_sound_list[0], init_sound_list[1], 4)
 	final_x = raw_sound_list[0]
-	#trial: y = 1/2000000 + .05
-	final_y = [((1/200000)*x)+.05 for x in final_x]
+	final_y = [((reg[0]*(x**4))+(reg[1]*(x**3))+(reg[2]*(x**2))+(reg[3]*x)+reg[4]) for x in final_x]
 	final = [final_x, final_y]
 	return(final)
 	
